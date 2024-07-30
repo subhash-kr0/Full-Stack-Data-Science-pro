@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room : {{ room }}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #007BFF;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        #chat {
+            width: 100%;
+            height: 300px;
+            overflow-y: auto;
+            background-color: #f8f9fa;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        .message {
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 10px;
+            word-wrap: break-word;
+        }
+
+        .user-message {
+            background-color: #007BFF;
+            color: #fff;
+            border: 1px solid #0056b3;
+            border-radius: 15px;
+            padding: 10px;
+            margin-bottom: 10px;
+            word-wrap: break-word;
+        }
+
+        .other-message {
+            background-color: #e5e5ea;
+            border: 1px solid #d4d4d4;
+            border-radius: 15px;
+            padding: 10px;
+            margin-bottom: 10px;
+            word-wrap: break-word;
+        }
+
+        .status-message {
+            color: #6c757d;
+        }
+
+        #text {
+            width: calc(100% - 90px); /* Adjusted width to make space for the send button */
+            box-sizing: border-box;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            display: inline-block;
+            font-size: 14px;
+        }
+
+        #sendButton {
+            width: 80px;
+            box-sizing: border-box;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #007BFF;
+            border-radius: 8px;
+            background-color: #007BFF;
+            color: #fff;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 14px;
+        }
+
+        #sendButton:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        #leaveRoomLink {
+            display: block;
+            color: #dc3545;
+            text-align: center;
+            text-decoration: none;
+            transition: color 0.3s;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        #leaveRoomLink:hover {
+            color: #a10b0b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Flask-SocketIO-Chat</h1>
+        <div id="chat" placeholder="Chat messages will appear here"></div>
+        <input id="text" placeholder="Enter your message here">
+        <button id="sendButton"><i class="fas fa-paper-plane"></i> Send</button>
+        <a href="#" id="leaveRoomLink">Leave this room</a>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.socket.io/4.4.1/socket.io.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            var socket = io.connect('https://' + document.domain + ':' + location.port + '/chat');
+            var usernameColor = getRandomColor();
+
+            socket.on('connect', function() {
+                socket.emit('joined', { color: usernameColor });
+            });
+
+            socket.on('status', function(data) {
+                appendToChat('<p class="message status-message">' + data.msg + '</p>');
+            });
+
+            socket.on('message', function(data) {
+                var messageClass = data.userColor === usernameColor ? 'user-message' : 'other-message';
+                appendToChat('<p class="message ' + messageClass + '">' + data.msg + '</p>');
+            });
+
+            $('#text').keypress(function(e) {
+                if (e.which === 13) {
+                    sendMessage();
+                }
+            });
+
+            $('#sendButton').click(function() {
+                sendMessage();
+            });
+
+            $('#leaveRoomLink').click(function() {
+                leaveRoom();
+            });
+
+            function appendToChat(message) {
+                $('#chat').append(message);
+                $('#chat').scrollTop($('#chat')[0].scrollHeight);
+            }
+
+            function sendMessage() {
+                var text = $('#text').val();
+                if (text.trim() !== '') {
+                    $('#text').val('');
+                    socket.emit('text', { msg: text, userColor: usernameColor });
+                }
+            }
+
+            function leaveRoom() {
+                socket.emit('left', {}, function() {
+                    socket.disconnect();
+                    window.location.href = "{{ url_for('main.index') }}";
+                });
+            }
+
+            function getRandomColor() {
+                var letters = '0123456789ABCDEF';
+                var color = '#';
+                for (var i = 0; i < 6; i++) {
+                    color += letters[Math.floor(Math.random() * 16)];
+                }
+                return color;
+            }
+        });
+    </script>
+</body>
+</html>

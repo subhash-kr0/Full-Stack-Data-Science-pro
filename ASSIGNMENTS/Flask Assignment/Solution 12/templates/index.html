@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flask-SocketIO Real-Time App</title>
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+</head>
+<body>
+    <h1>Flask-SocketIO Real-Time App</h1>
+    <div id="messages"></div>
+    <button id="sendButton">Send Message</button>
+    <script>
+        var socket = io();
+
+        socket.on('connect', function() {
+            console.log('Connected to server');
+        });
+
+        socket.on('message', function(data) {
+            var messages = document.getElementById('messages');
+            var message = document.createElement('p');
+            message.textContent = data.data;
+            messages.appendChild(message);
+        });
+
+        socket.on('server_response', function(data) {
+            var messages = document.getElementById('messages');
+            var message = document.createElement('p');
+            message.textContent = data.data;
+            messages.appendChild(message);
+        });
+
+        document.getElementById('sendButton').addEventListener('click', function() {
+            var message = 'Hello from client!';
+            socket.emit('client_event', {data: message});
+        });
+    </script>
+</body>
+</html>
