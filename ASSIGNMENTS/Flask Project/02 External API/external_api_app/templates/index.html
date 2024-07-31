@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>External API Data</title>
+</head>
+<body>
+    <h1> Data from External API </h1>
+    <form method="post">
+        <label for="search_query">Search Query: (Enter Numbers)</label>
+        <input type="text" name="search_query" id="search_query" required>
+        <button type="submit">Search</button>
+    </form>
+    {% if data %}
+    <ul>
+        {% for item in data %}
+          <li>{{ item.title }}</li>
+        {% endfor %}
+    </ul>
+    {% else %}
+        <h3>No Data for the searched query.</h3>
+    {% endif %}
+
+</body>
+</html>

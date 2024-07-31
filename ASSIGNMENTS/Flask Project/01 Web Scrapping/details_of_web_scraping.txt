@@ -1,0 +1,43 @@
+Program 1: Build a Flask app that scrapes data from multiple websites and displays it on your site.
+You can try to scrap websites like YouTube , Amazon and show data on output pages and deploy it on cloud
+platform .
+==========================================================================================================
+
+Scraping is simply the automated extraction of a web page's unstructured HTML information in a specified format,
+structuring it, and storing it in a database or saving it as a csv file for future consumption.
+
+BeautifulSoup is the most popular Python web scraping library.
+
+Step 1: Set up the environment:
+-------------------------------
+Import all the necessary libraries such as BeautifulSoup, requests, Flask.
+We create a Flask web application using "Flask(__name__)"
+
+Step 2: Define Configuration and Constants:
+-------------------------------------------
+We define some configuration options for the Flask app.
+We set the STATIC_FOLDER to specify the folder for serving static files.
+We also define save_dir for storing the downloaded images.
+Additionally, we set google_search_query to the search query for Google Image Search and google_search_url to the URL of the search results page.
+
+Step 3: Define a Function to Scrape Images:
+-------------------------------------------
+This function scrape_google_images(url) takes a URL as an argument, sends an HTTP GET request to that URL,
+and scrapes image URLs from the HTML content. It then downloads and saves the images in the specified directory
+(save_dir) with unique names based on the search query.
+
+Step 4: Define a Function to Get Image Files:
+---------------------------------------------
+This function get_image_files(directory, google_search_query) scans the specified directory for image files
+with names that match the search query. It returns a list of matching image file names.
+
+Step 5: Create the Main Route:
+------------------------------
+The main route / is defined here. When a user accesses the root URL, it calls the scrape_google_images function to
+download and save images and then calls get_image_files to get a list of image files.
+Finally, it renders an HTML template (index.html) and passes the image file list to the template.
+
+Step 6: Run the Flask App:
+--------------------------
+This part runs the Flask app when the script is executed. It specifies the host and port to run the app, and
+enables debugging mode for development.

@@ -1,0 +1,45 @@
+Program 3: Implement OAuth2 authentication to allow users to log in using their Google or Facebook accounts.
+============================================================================================================
+
+Implementing OAuth2 authentication for users to log in using their Google or Facebook accounts in a web application involves several steps.
+
+Step 1: Set up Developer Accounts:
+----------------------------------
+You need to create developer accounts with Google and Facebook to obtain API keys and credentials.
+
+    Google:
+
+        a. Go to the Google Developers Console. (https://console.developers.google.com/)
+        b. Create a new project.
+        c. Enable the "Google+ API" or "People API" (for user information).
+        d. Configure OAuth consent screen.
+        e. Create OAuth 2.0 credentials, which will provide you with a client ID and client secret.
+
+    Facebook:
+        a. Go to the Facebook for Developers. (https://developers.facebook.com/)
+        b. Create a new app.
+        c. Configure OAuth settings.
+        d. Obtain an App ID and App Secret.
+
+Step 2: Choose OAuth2 Library:
+------------------------------
+You can use OAuth2 libraries specific to your web framework or language.
+For example, Flask (Python) uses Flask-Dance, while other frameworks like Express.js (Node.js) have their own OAuth2 libraries.
+
+
+Step 3:  Implement OAuth2 in Your Application:
+----------------------------------------------
+a. Google OAuth2:
+    Install the required library (e.g., Flask-Dance for Flask).
+    Create routes for OAuth2 authentication.
+    Use the Google API client ID and client secret to configure OAuth2 for Google.
+    Define callback routes for handling authentication responses.
+    Fetch user information using the access token and store it in your database.
+
+b. Facebook OAuth2:
+    Install the required library.
+    Create routes for OAuth2 authentication.
+    Configure the Facebook App ID and App Secret.
+    Define callback routes for handling authentication responses.
+    Fetch user information using the access token and store it in your database
+

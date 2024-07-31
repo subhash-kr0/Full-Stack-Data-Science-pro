@@ -1,0 +1,34 @@
+Program 2: Create a Flask app that consumes data from external APIs and displays it to users.
+=============================================================================================
+
+This application creates a Flask app that consumes data from an external API and displays it to users.
+The app allows users to enter a search query, fetch data from the external API based on the query, and display the results.
+
+Step 1: Install Required Libraries:
+-----------------------------------
+Import Flask and requests, which are required for this app.
+
+Step 2: Create the constants file:
+----------------------------------
+Create a separate Python file (e.g., constants.py) to store the constants used in the app, such as the API URL.
+
+Step 3: Create the Flask App:
+-----------------------------
+Create a Flask app (e.g., app.py) and import necessary libraries.
+
+Step 4: Create a Function to Fetch Data:
+----------------------------------------
+This "get_external_api_data" function that sends a request to the external API and returns the data.
+
+Step 5: Route to Display Data:
+------------------------------
+A route that handles both GET and POST requests. If it's a POST request, fetch data based on the user's
+search query; otherwise, initialize the data as an empty list.
+
+Step 6: HTML template:
+----------------------
+An HTML template (e.g., index.html) in a folder named templates. This template displays the data to the user.
+
+Step 7: Run the Flask App:
+--------------------------
+Run the Flask app on http://localhost:5002/

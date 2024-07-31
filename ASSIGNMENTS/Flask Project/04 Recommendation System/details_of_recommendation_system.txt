@@ -1,0 +1,57 @@
+Program 4: Develop a recommendation system using Flask that suggests content to users based on their preferences.
+=================================================================================================================
+
+This is a simple movie recommendation system. It recommends movies to users based on their preferences.
+The recommendation system uses a combination of content-based and collaborative filtering.
+
+Step 1: Data Preparation:
+-------------------------
+The program uses two datasets: 'ratings.csv' and 'movies.csv'
+The 'ratings.csv' file contains user ratings for movies, and the 'movies.csv' file contains movie information.
+
+Step 2: Text Preprocessing:
+---------------------------
+Movie titles are preprocessed to remove special characters and convert them to lowercase.
+This is done to prepare the data for content-based filtering.
+
+Step 3: TF-IDF Vectorization:
+-----------------------------
+- The TF-IDF vectorizer is used to convert movie titles into numerical vectors.
+- TF-IDF (Term Frequency-Inverse Document Frequency) is a technique to convert text data into a numerical format.
+- A vector is created for each movie title based on its terms (words or phrases).
+
+Step 4: Cosine Similarity:
+--------------------------
+- Cosine similarity is used to calculate the similarity between movie titles.
+  It computes the cosine of the angle between two non-zero vectors.
+- In this case, it calculates the similarity between a user's query and the movie titles in the dataset.
+
+Step 5: Recommendation Function:
+--------------------------------
+The search function finds movies similar to the user's query. It uses cosine similarity to identify similar movie titles.
+
+Step 6: User-Based Filtering:
+-----------------------------
+- The "find_similar_movies" function uses collaborative filtering to find movies that are highly rated by users who have also rated the queried movie highly.
+- It computes a "score" for each movie based on the percentage of similar user ratings.
+
+Step 7: Flask Web Application:
+------------------------------
+The Flask web application provides a user interface for users to enter a movie title query.
+Users can enter the title of a movie they like, and the application will recommend similar movies based on their preferences.
+
+Step 8: Recommendation Display:
+-------------------------------
+The recommended movies are displayed on the web page after the user enters a movie title query.
+
+Step 9: Running the Application:
+--------------------------------
+The Flask application listens on 0.0.0.0 and port 5004.
+
+
+Usage:
+------
+Users enter a movie title in the search bar and submit the query.
+The application uses content-based and collaborative filtering to recommend movies based on the user's query.
+The recommendations are displayed on the web page.
+
